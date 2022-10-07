@@ -35,11 +35,18 @@ int main(int argc, char **argv)
   content = malloc(sizeof(char) * 5);
   for (x = 0; fscanf(f, "%s %d", content, &num) != -1; x++)
     {
+      printf("%s %d\n", content, num);
       if (strcmp(content, "push") == 0)
 	add_dnodeint(&stack, num);
       else if (strcmp(content, "pall") == 0)
 	print_dlistint(stack);
+      else
+	{
+	  printf("L%d: unknown instruction %s\n", x + 1, content);
+	  exit(EXIT_FAILURE);
+	}
     }
 
+  free_dlistint(stack);
   return (0);
 }

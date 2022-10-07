@@ -35,6 +35,7 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+void free_dlistint(stack_t *head);
 stack_t *add_dnodeint(stack_t **head, const int n);
 size_t print_dlistint(const stack_t *h);
 
