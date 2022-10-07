@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 /**
  *print_dlistint - prints all elements of a stack_t list

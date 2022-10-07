@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 
 /**
  *main - an interpreter for Monty ByteCodes file
