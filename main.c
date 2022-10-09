@@ -7,11 +7,12 @@
  *Retrun 
  */
 
+#define MAX_LINE_LENGTH 80
 
 int main(int argc, char **argv)
 {
   FILE *f;
-  __attribute__((unused)) char *content, *file_name;
+  __attribute__((unused)) char *content, *file_name, *line;
   __attribute__((unused)) unsigned int x;
   __attribute__((unused)) int num;
   __attribute__((unused)) stack_t *stack;
@@ -33,20 +34,39 @@ int main(int argc, char **argv)
 
   stack = NULL;
   content = malloc(sizeof(char) * 5);
-  for (x = 0; fscanf(f, "%s %d", content, &num) != -1; x++)
+  if (content == NULL)
     {
-      printf("%s %d\n", content, num);
-      if (strcmp(content, "push") == 0)
-	add_dnodeint(&stack, num);
-      else if (strcmp(content, "pall") == 0)
-	print_dlistint(stack);
-      else
+      printf("Error: malloc failed\n");
+      exit(EXIT_FAILURE);
+    }
+  line = malloc(sizeof(char) * MAX_LINE_LENGTH);
+  if (line == NULL)
+    {
+      printf("Error: malloc failed\n");
+      exit(EXIT_FAILURE);
+    }
+  for (x = 0; fgets(line, MAX_LINE_LENGTH, f); x++)
+    {
+      while (fscanf(f, " %s %d ", content, &num) != -1)
 	{
-	  printf("L%d: unknown instruction %s\n", x + 1, content);
-	  exit(EXIT_FAILURE);
+	  printf("%s %d\n", content, num);
+	  if (strcmp(content, "push") == 0)
+	    add_dnodeint(&stack, num);
+	  else if (strcmp(content, "pall") == 0)
+	    print_dlistint(stack);
+	  else
+	    {
+	      printf("L%d: unknown instruction %s\n", x + 1, content);
+	      free_dlistint(stack);
+	      free(content), free(line);
+	      fclose(f);
+	      exit(EXIT_FAILURE);
+	    }
 	}
     }
 
   free_dlistint(stack);
+  free(content), free(line);
+  fclose(f);
   return (0);
 }
