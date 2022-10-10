@@ -16,7 +16,7 @@ stack_t *temp = *stack;
 if (strcmp(content, "push") == 0)
 add_dnodeint(&temp, num), x++;
 
-if (strcmp(content, "pall") == 0)
+ else if (strcmp(content, "pall") == 0)
 print_dlistint(temp), x++;
 
 *stack = temp;
