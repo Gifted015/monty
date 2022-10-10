@@ -56,7 +56,7 @@ content[b] = line[a];
 while(line[a] == ' ')
 a++;
 
-if (line[a] != ' ')
+if (line[a] != ' ' && line[a] != '\n')
 {
 temp = malloc(sizeof(char) * MAX_LINE_LENGTH);
 if (temp == NULL)
