@@ -35,10 +35,6 @@ line = malloc(sizeof(char) * MAX_LINE_LENGTH);
 if (line == NULL)
 malloc_error(line);
 
-temp = malloc(sizeof(char) * MAX_LINE_LENGTH);
-if (temp == NULL)
-malloc_error(temp);
-
 check = malloc(sizeof(char) * MAX_LINE_LENGTH);
 if (check == NULL)
 malloc_error(check);
@@ -62,6 +58,9 @@ a++;
 
 if (line[a] != ' ')
 {
+temp = malloc(sizeof(char) * MAX_LINE_LENGTH);
+if (temp == NULL)
+malloc_error(temp);
 for (b = 0; line[a] != ' '; b++, a++)
 {
 if (line[a] == '\n')
@@ -70,7 +69,7 @@ temp[b] = line[a];
 }
 num = atoi(temp);
 sprintf(check, "%d", num);
-if (strcmp(temp, check) != 0)
+if (strcmp(temp, check) != 0 || temp == NULL)
 push_error(f, stack, content, line, x);
 }
 ret = opcodes(&stack, content, num);
@@ -80,6 +79,7 @@ unknown_error(f, stack, content, line, x);
 if (line[a] == '\n')
 break;
 }
+temp = NULL;
 }
 free_dlistint(stack);
 free(content), free(line);
