@@ -39,7 +39,7 @@ void (*f)(stack_t **stack, unsigned int line_number);
 void usage_error(void);
 void open_error(char *file_name);
 void malloc_error(char *holder);
-void unknown_instruction(FILE *f, stack_t *stack, char *content, char *line, int x);
+void unknown_error(FILE *f, stack_t *stack, char *content, char *line, int x);
 void free_dlistint(stack_t *head);
 stack_t *add_dnodeint(stack_t **head, const int n);
 size_t print_dlistint(const stack_t *h);

@@ -45,7 +45,8 @@ exit(EXIT_FAILURE);
 
 
 /**
-*unknown_instruction - handles error as a result of unknown instruction in file
+*unknown_error - handles error as a result of unknown instruction in file
+*@f: file being run
 *@stack: stack (doubly linked list) previously created
 *@content: the unknown instruction
 *@line: line in file where wrong instruction was found
@@ -53,7 +54,7 @@ exit(EXIT_FAILURE);
 *Return nothing
 */
 
-void unknown_instruction(FILE *f, stack_t *stack, char *content, char *line, int x)
+void unknown_error(FILE *f, stack_t *stack, char *content, char *line, int x)
 {
 char text[80];
 sprintf(text, "L%d: unknown instruction %s\n", x, content);

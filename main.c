@@ -47,7 +47,6 @@ else
 unknown_instruction(f, stack, content, line, x);
 }
 }
-
 free_dlistint(stack);
 free(content), free(line);
 fclose(f);
