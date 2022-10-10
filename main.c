@@ -44,7 +44,7 @@ add_dnodeint(&stack, num);
 else if (strcmp(content, "pall") == 0)
 print_dlistint(stack);
 else
-unknown_instruction(f, stack, content, line, x);
+unknown_error(f, stack, content, line, x);
 }
 }
 free_dlistint(stack);
