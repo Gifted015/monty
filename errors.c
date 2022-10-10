@@ -64,3 +64,25 @@ free(content), free(line);
 fclose(f);
 exit(EXIT_FAILURE);
 }
+
+
+/**
+*push_error - handles error resulting from wrong usage of push
+*@f: file being run
+*@stack: stack (doubly linked list) previously created
+*@content: buffer holding instruction push
+*@line: line in file where push was used
+*@x: line number in file
+*Return nothing
+*/
+
+void push_error(FILE *f, stack_t *stack, char *content, char *line, int x)
+{
+char text[80];
+sprintf(text, "L%d: usage: push integer\n", x);
+write(2, text, sizeof(char) * strlen(text));
+free_dlistint(stack);
+free(content), free(line);
+fclose(f);
+exit(EXIT_FAILURE);
+}

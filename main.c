@@ -12,9 +12,9 @@
 int main(int argc, char **argv)
 {
 FILE *f;
-__attribute__((unused)) char *content, *file_name, *line, *file;
+__attribute__((unused)) char *content, *file_name, *line, *file, *temp, *check;
 __attribute__((unused)) unsigned int x;
-__attribute__((unused)) int num;
+__attribute__((unused)) int num, ret, a, b;
 __attribute__((unused)) stack_t *stack;
 __attribute__((unused)) instruction_t *instruct;
 
@@ -35,16 +35,50 @@ line = malloc(sizeof(char) * MAX_LINE_LENGTH);
 if (line == NULL)
 malloc_error(line);
 
+temp = malloc(sizeof(char) * MAX_LINE_LENGTH);
+if (temp == NULL)
+malloc_error(temp);
+
+check = malloc(sizeof(char) * MAX_LINE_LENGTH);
+if (check == NULL)
+malloc_error(check);
+
 for (x = 1; fgets(line, MAX_LINE_LENGTH, f); x++)
 {
-while (fscanf(f, " %s %d ", content, &num) != -1)
+for(a = 0; line[a] != '\n'; a++)
 {
-if (strcmp(content, "push") == 0)
-add_dnodeint(&stack, num);
-else if (strcmp(content, "pall") == 0)
-print_dlistint(stack);
-else
+if (line[a] != ' ' )
+{
+for (b = 0; line[a] != ' '; b++, a++)
+{
+if (line[a] == '\n')
+break;
+content[b] = line[a];
+}
+}
+
+while(line[a] == ' ')
+a++;
+
+if (line[a] != ' ')
+{
+for (b = 0; line[a] != ' '; b++, a++)
+{
+if (line[a] == '\n')
+break;
+temp[b] = line[a];
+}
+num = atoi(temp);
+sprintf(check, "%d", num);
+if (strcmp(temp, check) != 0)
+push_error(f, stack, content, line, x);
+}
+ret = opcodes(&stack, content, num);
+if (ret == 0)
 unknown_error(f, stack, content, line, x);
+
+if (line[a] == '\n')
+break;
 }
 }
 free_dlistint(stack);
